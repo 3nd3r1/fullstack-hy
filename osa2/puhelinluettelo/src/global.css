@@ -1,0 +1,19 @@
+
+body {
+    background-color: #27272a;
+    color: white;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size:20px
+}
+
+table {
+    margin: auto
+}
+
+input {
+    padding: 5px
+}
+
+.error {
+box-shadow: 0 0 5px 1px red;
+}
