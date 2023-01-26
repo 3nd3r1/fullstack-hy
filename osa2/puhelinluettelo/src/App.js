@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import { getPersons, addPerson, updatePerson, deletePerson } from "./services";
 
 const PersonSearch = ({ handleChange }) => (
 	<form onChange={handleChange}>
@@ -49,13 +49,18 @@ const PersonForm = ({ handleChange, handleClick }) => (
 	</form>
 );
 
-const Persons = ({ persons }) => (
+const Persons = ({ persons, handleDelete }) => (
 	<table>
 		<tbody>
 			{persons.map((person) => (
 				<tr key={person.name}>
 					<td>{person.name}</td>
 					<td>{person.number}</td>
+					<td>
+						<button onClick={() => handleDelete(person.id)}>
+							Delete
+						</button>
+					</td>
 				</tr>
 			))}
 		</tbody>
@@ -68,9 +73,7 @@ const App = () => {
 	const [search, setSearch] = useState("");
 
 	useEffect(() => {
-		axios.get("http://localhost:3001/persons").then((response) => {
-			setPersons(response.data);
-		});
+		getPersons().then((data) => setPersons(data));
 	}, []);
 
 	const newPersonHandleChange = (event) => {
@@ -91,15 +94,50 @@ const App = () => {
 			return;
 		}
 		event.preventDefault();
+
 		if (persons.some((person) => person.name === newPerson.name)) {
-			alert(`The name ${newPerson.name} is already in use!`);
+			if (
+				window.confirm(
+					`${newPerson.name} is already in use, replace the old number with the new one?`
+				)
+			) {
+				const id = persons.find(
+					(person) => person.name === newPerson.name
+				).id;
+				updatePerson(id, newPerson)
+					.then((data) =>
+						setPersons(
+							persons.map((person) =>
+								person.id === id ? data : person
+							)
+						)
+					)
+					.catch((error) => {
+						alert(`Couldn't update person with id ${id}`);
+						setPersons(
+							persons.filter((person) => person.id !== id)
+						);
+					});
+			}
 		} else {
-			setPersons(persons.concat(newPerson));
+			addPerson(newPerson).then((data) =>
+				setPersons(persons.concat(data))
+			);
 		}
 	};
 
 	const searchHandleChange = (event) => {
 		setSearch(event.target.value);
+	};
+
+	const handleDelete = (id) => {
+		deletePerson(id)
+			.then(() =>
+				setPersons(persons.filter((person) => person.id !== id))
+			)
+			.catch((error) => {
+				alert(`Couldn't delete person with id ${id}`);
+			});
 	};
 
 	return (
@@ -121,6 +159,7 @@ const App = () => {
 				persons={persons.filter((person) =>
 					person.name.toLowerCase().includes(search.toLowerCase())
 				)}
+				handleDelete={handleDelete}
 			/>
 		</div>
 	);
