@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const PersonSearch = ({ handleChange }) => (
 	<form onChange={handleChange}>
@@ -65,6 +66,12 @@ const App = () => {
 	const [persons, setPersons] = useState([]);
 	const [newPerson, setNewPerson] = useState({ name: "", number: "" });
 	const [search, setSearch] = useState("");
+
+	useEffect(() => {
+		axios.get("http://localhost:3001/persons").then((response) => {
+			setPersons(response.data);
+		});
+	}, []);
 
 	const newPersonHandleChange = (event) => {
 		if (event.target.name === "name") {
