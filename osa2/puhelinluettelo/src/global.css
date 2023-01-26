@@ -14,6 +14,28 @@ input {
     padding: 5px
 }
 
+.hidden {
+    opacity: 0;
+}
+
+.notification {
+    background-color: rgb(197, 194, 194);
+    border-radius: 90px;
+    width: 100%;
+    padding: 8px 4px;
+    margin-top: 1px;
+    margin-bottom: 30px;
+    user-select: none;
+    transition-property: opacity;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 400ms;
+}
 .error {
-box-shadow: 0 0 5px 1px red;
+    border: 1px red solid;
+    color: red;
+}
+
+.success {
+    border: 1px rgb(122, 228, 122) solid;
+    color: rgb(77, 148, 77);
 }
