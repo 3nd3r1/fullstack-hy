@@ -1,0 +1,66 @@
+body {
+    background-color: #27272a;
+    color: white;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size:20px
+}
+
+table {
+    margin: auto
+}
+
+input {
+    padding: 5px
+}
+
+.country-info {
+    font-family: "Segoe Print";
+    border: 1px grey solid;
+    min-width: 600px;
+    padding-left: 50px;
+    padding-right: 50px;
+    transition-property: transform;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 250ms;
+    transform: translate(-2000px,0px);
+}
+
+.country-info-show {
+    transform: translate(0px,0px);
+}
+
+.country-info h3 {
+    font-size: 40px;
+    color: #878b91; 
+    text-align: right;
+    margin: 0px;
+    margin-right: 60px;
+    max-width: 300px;
+}
+.country-info h4 {
+    font-size: 40px;
+    text-align: left;
+    margin: 0px;
+    margin-left: 60px;
+    max-width: 350px;
+}
+
+.weather-info {
+    display: flex;
+    flex-direction: row;
+}
+
+.weather-info div {
+    display: flex;
+    flex-direction: column;
+    place-content: center;
+}
+
+.weather-info p {
+    margin: 0px;
+    text-align: left;
+}
+
+.weather-info p span {
+    color: #878b91; 
+}
