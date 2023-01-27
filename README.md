@@ -6,7 +6,7 @@ My solutions to the assignments of the [Fullstack-HY](https://fullstack-hy.githu
 
 -   [x] Osa 0
 -   [x] Osa 1
--   [ ] Osa 2
+-   [x] Osa 2
 -   [ ] Osa 3
 -   [ ] Osa 4
 -   [ ] Osa 5
