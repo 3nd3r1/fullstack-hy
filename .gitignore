@@ -1,1 +1,3 @@
-osa2/maidentiedot/.env
+**/.env
+**/.env.local
+**/node_modules
