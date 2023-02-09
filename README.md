@@ -12,3 +12,7 @@ My solutions to the assignments of the [Fullstack-HY](https://fullstack-hy.githu
 -   [ ] Osa 5
 -   [ ] Osa 6
 -   [ ] Osa 7
+
+## Links
+
+-   Tehtävän 3.10 puhelinluettelo linkki: [Puhelinluettelo](https://puhelinluettelo-2t4l.onrender.com/index.html)
