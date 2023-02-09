@@ -147,10 +147,7 @@ const App = () => {
 						})
 						.catch((error) => {
 							setPersons(serverPersons);
-							alertMessage(
-								"error",
-								`${newPerson.name} couldn't be updated!`
-							);
+							alertMessage("error", error.response.data.error);
 						});
 				}
 			}
@@ -162,10 +159,14 @@ const App = () => {
 					`${newPerson.name} has already been deleted from server!`
 				);
 			} else {
-				addPerson(newPerson).then((data) => {
-					setPersons(serverPersons.concat(data));
-					alertMessage("success", `Added ${data.name}`);
-				});
+				addPerson(newPerson)
+					.then((data) => {
+						setPersons(serverPersons.concat(data));
+						alertMessage("success", `Added ${data.name}`);
+					})
+					.catch((error) =>
+						alertMessage("error", error.response.data.error)
+					);
 			}
 		});
 	};
