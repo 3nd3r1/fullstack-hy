@@ -2,7 +2,9 @@
 
 My solutions to the assignments of the [Fullstack-HY](https://fullstack-hy.github.io/) course.
 
-## Completed Assignments
+Ratkaisuni [Fullstack-HY](https://fullstack-hy.github.io/) kurssin tehtäviin.
+
+## Completed Assignments / Tehdyt tehtävät
 
 -   [x] Osa 0
 -   [x] Osa 1
@@ -13,6 +15,12 @@ My solutions to the assignments of the [Fullstack-HY](https://fullstack-hy.githu
 -   [ ] Osa 6
 -   [ ] Osa 7
 
-## Links
+## How to see specific solutions / Miten nähdä tietyt ratkaisut
+
+Tietyn tehtävän ratkaisut voi nähdä etsimällä tehtävän numeroa vastaava commit.
+
+Specific solutions can be found from a commit with the assignments number.
+
+## Links / Linkit
 
 -   Tehtävän 3.10 puhelinluettelo linkki: [Puhelinluettelo](https://puhelinluettelo-2t4l.onrender.com/index.html)
