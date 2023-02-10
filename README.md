@@ -23,4 +23,4 @@ Specific solutions can be found from a commit with the assignments number.
 
 ## Links / Linkit
 
--   Tehtävän 3.10 puhelinluettelo linkki: [Puhelinluettelo](https://puhelinluettelo-2t4l.onrender.com/index.html)
+-   Osan 3 puhelinluettelo linkki: [Puhelinluettelo](https://puhelinluettelo-2t4l.onrender.com/index.html)
