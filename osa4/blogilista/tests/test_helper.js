@@ -68,8 +68,14 @@ const initialBlogs = listWithMultipleBlogs.map((blog) => ({
 	likes: blog.likes,
 }));
 
+const blogsInDb = async () => {
+	const blogs = await Blog.find({});
+	return blogs.map((blog) => blog.toJSON());
+};
+
 module.exports = {
 	listWithOneBlog,
 	listWithMultipleBlogs,
 	initialBlogs,
+	blogsInDb,
 };

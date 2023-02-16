@@ -26,4 +26,28 @@ blogsRouter.post("/", async (request, response) => {
 	response.status(201).json(result);
 });
 
+blogsRouter.delete("/:id", async (request, response) => {
+	await Blog.findByIdAndDelete(request.params.id);
+	response.status(204).end();
+});
+
+blogsRouter.put("/:id", async (request, response) => {
+	const { body } = request;
+	if (!body.title || !body.url) {
+		return response
+			.status(400)
+			.json({ error: "Title and url must be specified!" });
+	}
+	const blog = {
+		title: body.title,
+		author: body.author ? body.author : "Anonymous",
+		url: body.url,
+		likes: body.likes ? Number(body.likes) : 0,
+	};
+	const updatedBlog = await Blog.findByIdAndUpdate(request.params.id, blog, {
+		new: true,
+	});
+	response.json(updatedBlog);
+});
+
 module.exports = blogsRouter;
