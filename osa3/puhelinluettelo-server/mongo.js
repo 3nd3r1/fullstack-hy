@@ -7,7 +7,7 @@ if (process.argv.length < 3) {
 
 const password = process.argv[2];
 
-const url = `mongodb+srv://root:${password}@cluster0.g9r3kre.mongodb.net/?retryWrites=true&w=majority`;
+const url = `mongodb+srv://root:${password}@cluster0.g9r3kre.mongodb.net/phoneApp?retryWrites=true&w=majority`;
 
 mongoose.set('strictQuery', false);
 mongoose.connect(url);
@@ -26,9 +26,7 @@ if (process.argv.length === 5) {
   });
 
   person.save().then(() => {
-    console.log(
-      `added ${person.name} number ${person.number} to phonebook`,
-    );
+    console.log(`added ${person.name} number ${person.number} to phonebook`);
     mongoose.connection.close();
   });
 } else {
