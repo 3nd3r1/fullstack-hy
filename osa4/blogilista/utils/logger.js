@@ -10,7 +10,14 @@ const error = (...params) => {
 	}
 };
 
+const debug = (...params) => {
+	if (process.env.NODE_ENV === "development") {
+		console.debug("[DEBUG]: ", ...params);
+	}
+};
+
 module.exports = {
 	info,
 	error,
+	debug,
 };
