@@ -47,7 +47,9 @@ blogsRouter.delete("/:id", userExtractor, async (request, response) => {
 	}
 
 	await blog.delete();
-	user.blogs = user.blogs.filter((blogid) => blogid !== blog._id);
+	user.blogs = user.blogs.filter(
+		(blogid) => blogid.toString() !== blog._id.toString()
+	);
 	await user.save();
 	response.status(204).end();
 });
