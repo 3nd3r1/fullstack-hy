@@ -10,7 +10,7 @@ Ratkaisuni [Fullstack-HY](https://fullstack-hy.github.io/) kurssin tehtäviin.
 -   [x] Osa 1
 -   [x] Osa 2
 -   [x] Osa 3
--   [ ] Osa 4
+-   [x] Osa 4
 -   [ ] Osa 5
 -   [ ] Osa 6
 -   [ ] Osa 7
