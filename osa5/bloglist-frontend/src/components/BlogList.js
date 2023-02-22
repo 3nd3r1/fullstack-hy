@@ -50,8 +50,6 @@ const BlogList = ({ blogs, user, logout, createBlog }) => {
 									}
 								/>
 							</div>
-							{/* 
-                            Ymmärsin, että luodessa uutta blogia author on blogin lisääjä?
 
 							<div className="form-group">
 								<input
@@ -66,7 +64,7 @@ const BlogList = ({ blogs, user, logout, createBlog }) => {
 									}
 								/>
 							</div>
-                            */}
+
 							<div className="form-group">
 								<input
 									className="form-control"

@@ -22,7 +22,7 @@ const App = () => {
 			setBlogs(blogs.concat(result));
 			setNotification({
 				type: "success",
-				text: `a new blog ${result.title} by ${result.author.name} added!`,
+				text: `a new blog ${result.title} by ${result.author} added!`,
 			});
 		} catch (error) {
 			setNotification({
@@ -42,14 +42,14 @@ const App = () => {
 		if (loggedUserJSON) {
 			const user = JSON.parse(loggedUserJSON);
 			setUser(user);
-			blogService.setToken(user.token);
 		}
 	}, []);
 
 	useEffect(() => {
 		if (user !== null) {
-			fetchBlogs();
+			blogService.setToken(user.token);
 			window.localStorage.setItem("userSession", JSON.stringify(user));
+			fetchBlogs();
 		}
 	}, [user]);
 
