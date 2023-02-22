@@ -1,0 +1,8 @@
+body {
+    background: var(--bs-dark);
+    color: var(--bs-gray-200);
+}
+
+.bg-secondary {
+    background: var(--bs-gray-dark) !important;
+}
