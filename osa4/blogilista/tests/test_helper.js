@@ -66,6 +66,7 @@ const listWithMultipleBlogs = [
 
 const initialBlogs = listWithMultipleBlogs.map((blog) => ({
 	title: blog.title,
+	author: blog.author,
 	url: blog.url,
 	likes: blog.likes,
 }));

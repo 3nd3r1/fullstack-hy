@@ -5,7 +5,7 @@ const { BadRequest, BadAuth, NotFound } = require("../utils/errors");
 const { userExtractor } = require("../utils/middleware");
 
 blogsRouter.get("/", async (request, response) => {
-	const blogs = await Blog.find({}).populate("author", {
+	const blogs = await Blog.find({}).populate("user", {
 		username: 1,
 		name: 1,
 	});
@@ -22,8 +22,9 @@ blogsRouter.post("/", userExtractor, async (request, response) => {
 
 	const blog = new Blog({
 		title: body.title,
-		author: user._id,
+		author: body.author ? body.author : "Anonymous",
 		url: body.url,
+		user: user._id,
 		likes: body.likes ? Number(body.likes) : 0,
 	});
 
@@ -31,7 +32,7 @@ blogsRouter.post("/", userExtractor, async (request, response) => {
 	user.blogs = user.blogs.concat(result._id);
 	await user.save();
 
-	const newBlog = await Blog.findById(result._id).populate("author", {
+	const newBlog = await Blog.findById(result._id).populate("user", {
 		username: 1,
 		name: 1,
 	});
@@ -47,7 +48,7 @@ blogsRouter.delete("/:id", userExtractor, async (request, response) => {
 		throw new NotFound("Blog with that id was not found!");
 	}
 
-	if (blog.author.toString() !== user._id.toString()) {
+	if (blog.user.toString() !== user._id.toString()) {
 		throw new BadAuth("Deletion not permitted!");
 	}
 
@@ -68,13 +69,14 @@ blogsRouter.put("/:id", userExtractor, async (request, response) => {
 		throw new NotFound("Blog with that id was not found!");
 	}
 
-	if (blog.author.toString() !== user._id.toString()) {
+	if (blog.user.toString() !== user._id.toString()) {
 		throw new BadAuth("Updating not permitted!");
 	}
 
 	blog.title = body.title;
 	blog.url = body.url;
 	blog.likes = body.likes ? Number(body.likes) : blog.likes;
+	blog.author = body.author ? body.author : blog.author;
 
 	const result = await blog.save();
 

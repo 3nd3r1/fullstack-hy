@@ -19,7 +19,7 @@ beforeEach(async () => {
 	const user = await User.findOne({});
 	const initialBlogs = helper.initialBlogs.map((blog) => ({
 		...blog,
-		author: user._id,
+		user: user._id,
 	}));
 
 	await Blog.deleteMany({});
@@ -46,6 +46,7 @@ describe("addition of a new blog", () => {
 		const newBlog = {
 			title: "Why double quotes are better than single quotes",
 			url: "https://google.fi",
+			author: "Ender",
 			likes: 999999,
 		};
 
@@ -105,6 +106,7 @@ describe("addition of a new blog", () => {
 		const newBlog = {
 			title: "Why double quotes are better than single quotes",
 			likes: 999999,
+			author: "Ender",
 		};
 
 		await api
@@ -119,6 +121,7 @@ describe("addition of a new blog", () => {
 			title: "Why double quotes are better than single quotes",
 			url: "https://google.fi",
 			likes: 999999,
+			author: "Ender",
 		};
 
 		await api.post("/api/blogs").send(newBlog).expect(401);
