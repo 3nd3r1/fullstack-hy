@@ -6,7 +6,9 @@ const Blog = ({ blog, removeBlog, likeBlog, owned }) => {
 		<div className="border rounded d-flex flex-column">
 			<div className="d-flex flex-row justify-content-between align-items-center py-2">
 				<div className="px-4">
-					{blog.title} - <strong>{blog.author}</strong>
+					<p>{blog.title}</p>
+					<span> - </span>
+					<strong>{blog.author}</strong>
 				</div>
 				<div className="px-4">
 					<button
@@ -26,7 +28,8 @@ const Blog = ({ blog, removeBlog, likeBlog, owned }) => {
 						</a>
 					</div>
 					<div className="text-left w-100 px-4">
-						<strong>Likes:</strong> {blog.likes}
+						<strong>Likes:</strong>
+						<p>{blog.likes}</p>
 						<button
 							className="btn btn-secondary btn-sm mx-2"
 							onClick={() => likeBlog(blog)}
@@ -35,7 +38,8 @@ const Blog = ({ blog, removeBlog, likeBlog, owned }) => {
 						</button>
 					</div>
 					<div className="text-left w-100 px-4 mb-2">
-						<strong>Added By:</strong> {blog.user.name}
+						<strong>Added By:</strong>
+						<p>{blog.user.name}</p>
 					</div>
 					{owned && (
 						<div className="px-4 mb-3">
