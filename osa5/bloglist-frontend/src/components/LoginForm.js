@@ -29,6 +29,7 @@ const LoginForm = ({ setUser, setNotification }) => {
 						<input
 							className="form-control"
 							type="text"
+							id="username"
 							autoComplete="username"
 							onChange={(evt) => setUsername(evt.target.value)}
 							placeholder="Username"
@@ -38,13 +39,14 @@ const LoginForm = ({ setUser, setNotification }) => {
 						<input
 							className="form-control"
 							type="password"
+							id="password"
 							autoComplete="current-password"
 							onChange={(evt) => setPassword(evt.target.value)}
 							placeholder="Password"
 						/>
 					</div>
 					<div className="form-group">
-						<button type="submit" className="form-control">
+						<button type="submit" id="login" className="form-control">
 							Login
 						</button>
 					</div>

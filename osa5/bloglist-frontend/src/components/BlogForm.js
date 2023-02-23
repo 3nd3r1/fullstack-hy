@@ -3,9 +3,9 @@ import { useState } from "react";
 const BlogForm = ({ createBlog }) => {
 	const [newBlog, setNewBlog] = useState({ title: "", author: "", url: "" });
 
-	const handleSubmit = (evt) => {
+	const handleSubmit = async (evt) => {
 		evt.preventDefault();
-		createBlog(newBlog);
+		await createBlog(newBlog);
 		setNewBlog({ title: "", author: "", url: "" });
 	};
 
@@ -18,6 +18,7 @@ const BlogForm = ({ createBlog }) => {
 						<input
 							className="form-control"
 							type="text"
+							id="blog-title"
 							placeholder="Title"
 							onChange={(evt) =>
 								setNewBlog({
@@ -25,6 +26,7 @@ const BlogForm = ({ createBlog }) => {
 									title: evt.target.value,
 								})
 							}
+							value={newBlog.title}
 						/>
 					</div>
 
@@ -32,6 +34,7 @@ const BlogForm = ({ createBlog }) => {
 						<input
 							className="form-control"
 							type="text"
+							id="blog-author"
 							placeholder="Author"
 							onChange={(evt) =>
 								setNewBlog({
@@ -39,6 +42,7 @@ const BlogForm = ({ createBlog }) => {
 									author: evt.target.value,
 								})
 							}
+							value={newBlog.author}
 						/>
 					</div>
 
@@ -46,6 +50,7 @@ const BlogForm = ({ createBlog }) => {
 						<input
 							className="form-control"
 							type="text"
+							id="blog-url"
 							placeholder="Url"
 							onChange={(evt) =>
 								setNewBlog({
@@ -53,10 +58,11 @@ const BlogForm = ({ createBlog }) => {
 									url: evt.target.value,
 								})
 							}
+							value={newBlog.url}
 						/>
 					</div>
 					<div className="form-group">
-						<button type="submit" className="form-control">
+						<button type="submit" id="blog-create" className="form-control">
 							Create
 						</button>
 					</div>
