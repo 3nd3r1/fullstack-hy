@@ -62,16 +62,20 @@ blogsRouter.delete("/:id", userExtractor, async (request, response) => {
 
 blogsRouter.put("/:id", userExtractor, async (request, response) => {
 	const { body } = request;
-	const user = await User.findById(request.user.id);
 	const blog = await Blog.findById(request.params.id);
 
 	if (!blog) {
 		throw new NotFound("Blog with that id was not found!");
 	}
 
+	/*
+    Poistan tämän, jotta muiden blogeista voi tykätä.
+    Paras vaihtoehto olisi varmaan, että likes on ainoa kenttä jota voi päivittää muiden blogeista.
+
 	if (blog.user.toString() !== user._id.toString()) {
 		throw new BadAuth("Updating not permitted!");
 	}
+    */
 
 	blog.title = body.title;
 	blog.url = body.url;
@@ -79,8 +83,9 @@ blogsRouter.put("/:id", userExtractor, async (request, response) => {
 	blog.author = body.author ? body.author : blog.author;
 
 	const result = await blog.save();
+	const updatedBlog = await Blog.findById(result._id).populate("user");
 
-	response.json(result);
+	response.json(updatedBlog);
 });
 
 module.exports = blogsRouter;
