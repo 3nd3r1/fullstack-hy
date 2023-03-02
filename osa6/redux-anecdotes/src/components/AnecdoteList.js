@@ -1,8 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { voteAnecdote } from "../reducers/anecdoteReducer";
-import anecdoteService from "../services/anecdotes";
-import { sendNotificaion } from "../utils/notification";
+import { sendNotification } from "../reducers/notificationReducer";
 
 const AnecdoteList = () => {
 	const anecdotes = useSelector((state) =>
@@ -13,12 +12,8 @@ const AnecdoteList = () => {
 	const dispatch = useDispatch();
 
 	const vote = async (anecdote) => {
-		await anecdoteService.update(
-			{ ...anecdote, votes: anecdote.votes + 1 },
-			anecdote.id
-		);
-		dispatch(voteAnecdote(anecdote.id));
-		sendNotificaion(dispatch, `You voted "${anecdote.content}"`);
+		dispatch(voteAnecdote(anecdote));
+		dispatch(sendNotification(`You voted "${anecdote.content}"`, 5000));
 	};
 
 	return (
