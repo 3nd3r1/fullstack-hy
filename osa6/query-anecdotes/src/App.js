@@ -3,15 +3,21 @@ import { getAnecdotes, updateAnecdote } from "./requests";
 
 import AnecdoteForm from "./components/AnecdoteForm";
 import Notification from "./components/Notification";
+import { useNotificationDispatch } from "./NotificationContext";
 
 const App = () => {
 	const queryClient = useQueryClient();
 	const updateAnecdoteMutation = useMutation(updateAnecdote, {
-		onSuccess: () => {
+		onSuccess: (data) => {
+			notificationDispatch({
+				type: "SHOW",
+				payload: { message: `You voted for "${data.content}"!` },
+			});
 			queryClient.invalidateQueries("anecdotes");
 		},
 	});
 	const result = useQuery("anecdotes", getAnecdotes, { retry: 1 });
+	const notificationDispatch = useNotificationDispatch();
 
 	const handleVote = (anecdote) => {
 		updateAnecdoteMutation.mutate({
