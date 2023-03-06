@@ -1,6 +1,10 @@
+import { useSelector } from "react-redux";
 import Blog from "./Blog";
 
-const BlogList = ({ blogs, removeBlog, likeBlog, user }) => {
+const BlogList = () => {
+	const blogs = useSelector((state) => state.blogs);
+	const user = useSelector((state) => state.user);
+
 	return (
 		<div className="pb-3">
 			<h3 className="card-title text-center">Blogs</h3>
@@ -9,8 +13,6 @@ const BlogList = ({ blogs, removeBlog, likeBlog, user }) => {
 					<Blog
 						key={blog.id}
 						blog={blog}
-						likeBlog={likeBlog}
-						removeBlog={removeBlog}
 						owned={blog.user.username === user.username}
 					/>
 				))}

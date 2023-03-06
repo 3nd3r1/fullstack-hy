@@ -1,25 +1,24 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-import loginService from "../services/login";
+import { login } from "../reducers/userReducer";
 
-import PropTypes from "prop-types";
+const LoginPage = () => {
+	const dispatch = useDispatch();
+	const user = useSelector((state) => state.user);
 
-const LoginForm = ({ setUser, setNotification }) => {
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
 
 	const handleSubmit = async (evt) => {
 		evt.preventDefault();
-		try {
-			const data = await loginService.login({ username, password });
-			setUser(data);
-		} catch (error) {
-			setNotification({
-				type: "danger",
-				text: error.response.data.error,
-			});
-		}
+		dispatch(login({ username, password }));
 	};
+
+	if (user) {
+		return;
+	}
+
 	return (
 		<div className="card margin-auto bg-secondary m-auto w-25 p-2 shadow">
 			<div className="card-body d-flex flex-column align-items-center gap-2">
@@ -46,7 +45,11 @@ const LoginForm = ({ setUser, setNotification }) => {
 						/>
 					</div>
 					<div className="form-group">
-						<button type="submit" id="login" className="form-control">
+						<button
+							type="submit"
+							id="login"
+							className="form-control"
+						>
 							Login
 						</button>
 					</div>
@@ -56,9 +59,4 @@ const LoginForm = ({ setUser, setNotification }) => {
 	);
 };
 
-LoginForm.propTypes = {
-	setUser: PropTypes.func.isRequired,
-	setNotification: PropTypes.func.isRequired,
-};
-
-export default LoginForm;
+export default LoginPage;

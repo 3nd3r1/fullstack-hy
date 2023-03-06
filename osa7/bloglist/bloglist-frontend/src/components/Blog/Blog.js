@@ -1,7 +1,17 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { likeBlog, removeBlog } from "../../reducers/blogReducer";
 
-const Blog = ({ blog, removeBlog, likeBlog, owned }) => {
+const Blog = ({ blog, owned }) => {
+	const dispatch = useDispatch();
 	const [expanded, setExpanded] = useState(false);
+
+	const confirmAndDelete = (blog) => {
+		if (window.confirm(`Remove blog ${blog.title} by ${blog.author}?`)) {
+			dispatch(removeBlog(blog));
+		}
+	};
+
 	return (
 		<div className="border rounded d-flex flex-column">
 			<div className="d-flex flex-row justify-content-between align-items-center py-2">
@@ -32,7 +42,7 @@ const Blog = ({ blog, removeBlog, likeBlog, owned }) => {
 						<span>{blog.likes}</span>
 						<button
 							className="btn btn-secondary btn-sm "
-							onClick={() => likeBlog(blog)}
+							onClick={() => dispatch(likeBlog(blog))}
 						>
 							Like
 						</button>
@@ -45,7 +55,7 @@ const Blog = ({ blog, removeBlog, likeBlog, owned }) => {
 						<div className="px-4 mb-3">
 							<button
 								className="btn btn-danger btn-sm"
-								onClick={() => removeBlog(blog)}
+								onClick={() => confirmAndDelete(blog)}
 							>
 								Remove
 							</button>

@@ -1,19 +1,26 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { createBlog } from "../../reducers/blogReducer";
 
-const BlogForm = ({ createBlog }) => {
+const BlogForm = ({ hide }) => {
 	const [newBlog, setNewBlog] = useState({ title: "", author: "", url: "" });
+	const dispatch = useDispatch();
 
 	const handleSubmit = async (evt) => {
 		evt.preventDefault();
-		await createBlog(newBlog);
+		dispatch(createBlog(newBlog));
 		setNewBlog({ title: "", author: "", url: "" });
+		hide();
 	};
 
 	return (
 		<div className="d-flex flex-column align-items-center">
 			<h3 className="card-title text-center mb-3">Create New</h3>
 			<div className="w-75">
-				<form className="d-flex flex-column gap-2" onSubmit={handleSubmit}>
+				<form
+					className="d-flex flex-column gap-2"
+					onSubmit={handleSubmit}
+				>
 					<div className="form-group">
 						<input
 							className="form-control"
@@ -62,7 +69,11 @@ const BlogForm = ({ createBlog }) => {
 						/>
 					</div>
 					<div className="form-group">
-						<button type="submit" id="blog-create" className="form-control">
+						<button
+							type="submit"
+							id="blog-create"
+							className="form-control"
+						>
 							Create
 						</button>
 					</div>

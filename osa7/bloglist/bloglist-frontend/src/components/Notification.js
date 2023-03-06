@@ -1,11 +1,13 @@
 import React from "react";
+import { useSelector } from "react-redux";
 
-import PropTypes from "prop-types";
+const Notification = () => {
+	const notification = useSelector((state) => state.notification);
 
-const Notification = ({ notification }) => {
-	if (notification === null) {
+	if (!notification.active) {
 		return;
 	}
+
 	return (
 		<div
 			className={`alert alert-${notification.type} fade show w-25 m-auto mb-4`}
@@ -14,13 +16,6 @@ const Notification = ({ notification }) => {
 			<strong>{notification.text}</strong>
 		</div>
 	);
-};
-
-Notification.propTypes = {
-	notification: PropTypes.shape({
-		type: PropTypes.string.isRequired,
-		text: PropTypes.string.isRequired,
-	}),
 };
 
 export default Notification;
