@@ -13,7 +13,7 @@ Ratkaisuni [Fullstack-HY](https://fullstack-hy.github.io/) kurssin tehtäviin.
 -   [x] Osa 4
 -   [x] Osa 5
 -   [x] Osa 6
--   [ ] Osa 7
+-   [x] Osa 7
 
 ## How to see specific solutions / Miten nähdä tietyt ratkaisut
 
