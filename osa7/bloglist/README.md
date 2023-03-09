@@ -3,7 +3,7 @@
 ## Ajatuksia
 
 - En ole varma onko notifikaatioiden lähettäminen reducerissa hyvä idea
-- ~~ initializeUser(), joka suorittaa fetchBlogs() on myös vähän niin ja näin ~~
+- <del> initializeUser(), joka suorittaa fetchBlogs() on myös vähän niin ja näin </del>
 
 ## Virheitä
 
