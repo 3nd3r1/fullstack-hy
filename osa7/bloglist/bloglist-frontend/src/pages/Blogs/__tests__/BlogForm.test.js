@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
-import BlogForm from "./BlogForm";
+import BlogForm from "../BlogForm";
 import userEvent from "@testing-library/user-event";
 
 test("<BlogForm/> calls handler with correct data on submit", async () => {

@@ -42,4 +42,12 @@ blogService.update = async (newBlog, id) => {
 	return response.data;
 };
 
+blogService.comment = async (id, comment) => {
+	const response = await axios.post(
+		baseUrl + "/" + id.toString() + "/comments",
+		{ comment }
+	);
+	return response.data;
+};
+
 export default blogService;

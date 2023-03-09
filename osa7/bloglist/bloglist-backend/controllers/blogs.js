@@ -26,6 +26,7 @@ blogsRouter.post("/", userExtractor, async (request, response) => {
 		url: body.url,
 		user: user._id,
 		likes: body.likes ? Number(body.likes) : 0,
+		comments: [],
 	});
 
 	const result = await blog.save();
@@ -81,6 +82,26 @@ blogsRouter.put("/:id", userExtractor, async (request, response) => {
 	blog.url = body.url;
 	blog.likes = body.likes ? Number(body.likes) : blog.likes;
 	blog.author = body.author ? body.author : blog.author;
+
+	const result = await blog.save();
+	const updatedBlog = await Blog.findById(result._id).populate("user");
+
+	response.json(updatedBlog);
+});
+
+blogsRouter.post("/:id/comments", async (request, response) => {
+	const { body } = request;
+	const blog = await Blog.findById(request.params.id);
+
+	if (!body.comment) {
+		throw new BadRequest("Comment must be specified!");
+	}
+
+	if (!blog) {
+		throw new NotFound("Blog with that id was not found!");
+	}
+
+	blog.comments = blog.comments.concat(body.comment);
 
 	const result = await blog.save();
 	const updatedBlog = await Blog.findById(result._id).populate("user");

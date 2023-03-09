@@ -24,7 +24,7 @@ const blogSlice = createSlice({
 	},
 });
 
-export const fetchBlogs = () => {
+export const initializeBlogs = () => {
 	return async (dispatch) => {
 		const blogs = await blogService.getAll();
 		dispatch(setBlogs(blogs));
@@ -60,6 +60,27 @@ export const likeBlog = (blog) => {
 			blog.id
 		);
 		dispatch(updateBlog(updatedBlog));
+	};
+};
+
+export const commentBlog = ({ id, comment }) => {
+	return async (dispatch) => {
+		try {
+			const updatedBlog = await blogService.comment(id, comment);
+			dispatch(updateBlog(updatedBlog));
+			dispatch(
+				sendNotification({ text: "Added comment!", type: "success" })
+			);
+		} catch (error) {
+			dispatch(
+				sendNotification({
+					text: error.response
+						? error.response.data.error
+						: error.message,
+					type: "danger",
+				})
+			);
+		}
 	};
 };
 
