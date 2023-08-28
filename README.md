@@ -14,12 +14,12 @@ Ratkaisuni [Fullstack-HY](https://fullstack-hy.github.io/) kurssin tehtäviin.
 -   [x] Osa 5
 -   [x] Osa 6
 -   [x] Osa 7
--   [] Osa 8
--   [] Osa 9
--   [] Osa 10
--   [] Osa 11
--   [] Osa 12
--   [] Osa 13
+-   [ ] Osa 8
+-   [ ] Osa 9
+-   [ ] Osa 10
+-   [ ] Osa 11
+-   [ ] Osa 12
+-   [ ] Osa 13
 
 ## How to see specific solutions / Miten nähdä tietyt ratkaisut
 
