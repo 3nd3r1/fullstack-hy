@@ -123,7 +123,7 @@ const resolvers = {
 			if (!author) {
 				author = new Author({ name: args.author });
 				try {
-					author = await author.save();
+					await author.save();
 				} catch (error) {
 					throw new GraphQLError("Saving author failed", {
 						extensions: {

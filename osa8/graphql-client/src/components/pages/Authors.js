@@ -1,14 +1,31 @@
-import { useMutation, useQuery } from "@apollo/client";
-import { getAuthorsQuery } from "../lib/queries";
 import { useState } from "react";
-import { editAuthorMutation } from "../lib/mutations";
 
-const EditAuthorForm = ({ refetch, authors }) => {
+import { useMutation, useQuery } from "@apollo/client";
+
+import { getAuthorsQuery } from "../../lib/queries";
+import { editAuthorMutation } from "../../lib/mutations";
+import { useNotification, useUser } from "../../lib/context";
+
+const EditAuthorForm = ({ authors }) => {
 	const [name, setName] = useState("");
 	const [born, setBorn] = useState("");
 
+	const { notify } = useNotification();
+	const { token } = useUser();
+
 	const [editAuthor] = useMutation(editAuthorMutation, {
-		refreshQueries: [{ query: getAuthorsQuery }],
+		onError: (error) => {
+			notify(error.message, "error");
+		},
+		update: (cache, response) => {
+			cache.updateQuery({ query: getAuthorsQuery }, ({ allAuthors }) => {
+				return {
+					allAuthors: allAuthors
+						.filter((a) => a.name !== response.data.editAuthor.name)
+						.concat(response.data.editAuthor),
+				};
+			});
+		},
 	});
 
 	const submit = async (event) => {
@@ -23,24 +40,31 @@ const EditAuthorForm = ({ refetch, authors }) => {
 
 		setName("");
 		setBorn("");
-		refetch();
 	};
+
+	if (!token) return null;
 
 	return (
 		<form onSubmit={submit}>
 			<h2>Set birthyear</h2>
 			<div>
-				<label for="name">
+				<label htmlFor="name">
 					name
-					<select onChange={(e) => setName(e.target.value)}>
+					<select
+						onChange={(e) => setName(e.target.value)}
+						value={name}
+					>
+						<option value="">Select author</option>
 						{authors.map((author) => (
-							<option value={author.name}>{author.name}</option>
+							<option key={author.name} value={author.name}>
+								{author.name}
+							</option>
 						))}
 					</select>
 				</label>
 			</div>
 			<div>
-				<label for="name">
+				<label htmlFor="name">
 					born
 					<input
 						type="number"
@@ -85,7 +109,7 @@ const Authors = () => {
 					))}
 				</tbody>
 			</table>
-			<EditAuthorForm refetch={result.refetch} authors={authors} />
+			<EditAuthorForm authors={authors} />
 		</div>
 	);
 };
