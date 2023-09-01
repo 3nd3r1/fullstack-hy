@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { getAuthorsQuery, getBooksQuery } from "../../lib/queries";
 import { createBookMutation } from "../../lib/mutations";
-import { useMutation } from "@apollo/client";
+import { useMutation, useSubscription } from "@apollo/client";
 import { useNotification } from "../../lib/context";
+import { bookAddedSubscription } from "../../lib/subscriptions";
 
 const NewBook = () => {
 	const [title, setTitle] = useState("");
@@ -17,30 +18,65 @@ const NewBook = () => {
 		onError: (error) => {
 			notify(error.message, "error");
 		},
-		update: (cache, response) => {
-			if (cache.readQuery({ query: getBooksQuery })) {
-				cache.updateQuery({ query: getBooksQuery }, ({ allBooks }) => {
-					return {
-						allBooks: allBooks.concat(response.data.addBook),
-					};
-				});
+	});
+
+	useSubscription(bookAddedSubscription, {
+		onError: (error) => {
+			notify(error.message, "error");
+		},
+		onData: ({ data, client }) => {
+			const addedBook = data.data.bookAdded;
+
+			notify(`New book added: ${addedBook.title}`, "success");
+
+			if (client.cache.readQuery({ query: getBooksQuery })) {
+				client.cache.updateQuery(
+					{ query: getBooksQuery },
+					({ allBooks }) => {
+						return {
+							allBooks: allBooks
+								.filter((book) => book.id !== addedBook.id)
+								.concat(addedBook),
+						};
+					}
+				);
 			}
-			if (cache.readQuery({ query: getAuthorsQuery })) {
-				cache.updateQuery(
+
+			if (client.cache.readQuery({ query: getAuthorsQuery })) {
+				client.cache.updateQuery(
 					{ query: getAuthorsQuery },
 					({ allAuthors }) => {
 						return {
 							allAuthors: allAuthors
 								.filter(
-									(a) =>
-										a.name !==
-										response.data.addBook.author.name
+									(author) =>
+										author.id !== addedBook.author.id
 								)
-								.concat(response.data.addBook.author),
+								.concat(addedBook.author),
 						};
 					}
 				);
 			}
+
+			addedBook.genres.forEach((genre) => {
+				if (
+					client.cache.readQuery({
+						query: getBooksQuery,
+						variables: { genre: genre },
+					})
+				) {
+					client.cache.updateQuery(
+						{ query: getBooksQuery, variables: { genre } },
+						({ allBooks }) => {
+							return {
+								allBooks: allBooks
+									.filter((book) => book.id !== addedBook.id)
+									.concat(addedBook),
+							};
+						}
+					);
+				}
+			});
 		},
 	});
 

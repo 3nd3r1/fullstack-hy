@@ -21,7 +21,7 @@ const EditAuthorForm = ({ authors }) => {
 			cache.updateQuery({ query: getAuthorsQuery }, ({ allAuthors }) => {
 				return {
 					allAuthors: allAuthors
-						.filter((a) => a.name !== response.data.editAuthor.name)
+						.filter((a) => a.id !== response.data.editAuthor.id)
 						.concat(response.data.editAuthor),
 				};
 			});

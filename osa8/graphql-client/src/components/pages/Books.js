@@ -1,6 +1,6 @@
 import { useQuery } from "@apollo/client";
 import { getBooksQuery } from "../../lib/queries";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const Books = () => {
 	const [genre, setGenre] = useState("");
@@ -8,14 +8,14 @@ const Books = () => {
 	const result = useQuery(getBooksQuery);
 	const filteredResult = useQuery(getBooksQuery, { variables: { genre } });
 
-	const books = filteredResult.data?.allBooks || [];
+	const books =
+		(genre !== ""
+			? filteredResult.data?.allBooks
+			: result.data?.allBooks) || [];
+
 	const genres = [
 		...new Set(result.data?.allBooks.map((b) => b.genres).flat()),
 	];
-
-	useEffect(() => {
-		filteredResult.refetch();
-	}, [genre]); // eslint-disable-line
 
 	if (result.loading) {
 		return <div>loading...</div>;
