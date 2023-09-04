@@ -1,5 +1,3 @@
-import { isNumber } from "./utils";
-
 interface CalculationsResult {
 	periodLength: number;
 	trainingDays: number;
@@ -47,13 +45,4 @@ const calculateExercises = (
 	};
 };
 
-if (process.argv.length < 4) throw new Error("Not enough arguments");
-if (process.argv.slice(2, process.argv.length).some((v) => !isNumber(v)))
-	throw new Error("Provided values were not numbers!");
-
-const dailyExercise = process.argv
-	.slice(3, process.argv.length)
-	.map((v) => Number(v));
-const target = Number(process.argv[2]);
-
-console.log(calculateExercises(dailyExercise, target));
+export default calculateExercises;
