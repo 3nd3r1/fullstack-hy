@@ -46,7 +46,6 @@
 		"@testing-library/react": "^14.0.0",
 		"@testing-library/user-event": "^14.4.3",
 		"concurrently": "^7.6.0",
-		"cypress": "^12.6.0",
 		"eslint-plugin-prettier": "^4.2.1"
 	}
 }
