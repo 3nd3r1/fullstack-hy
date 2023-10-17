@@ -1,22 +1,20 @@
 import { useState } from "react";
 import { NewDiaryEntry, Visibility, Weather } from "../lib/types";
-import { addDiaryEntry } from "../lib/services";
 
-const NewEntry = ({ setDiaryEntries }: { setDiaryEntries: ReactD }) => {
+const NewEntry = ({
+	addDiaryEntry,
+}: {
+	addDiaryEntry: (entry: NewDiaryEntry) => void;
+}) => {
 	const [date, setDate] = useState<string>("");
 	const [visibility, setVisibility] = useState<Visibility>(Visibility.Great);
 	const [weather, setWeather] = useState<Weather>(Weather.Sunny);
 	const [comment, setComment] = useState<string>("");
 
-	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		const newEntry: NewDiaryEntry = { date, visibility, weather, comment };
-
-		try {
-			const addedEntry = await addDiaryEntry(newEntry);
-		} catch (error) {
-			console.log(error);
-		}
+		addDiaryEntry(newEntry);
 	};
 
 	return (
@@ -33,40 +31,40 @@ const NewEntry = ({ setDiaryEntries }: { setDiaryEntries: ReactD }) => {
 					/>
 				</div>
 				<div>
-					<label htmlFor="visibility">Visibility</label>
-					<select
-						id="visibility"
-						value={visibility}
-						onChange={(e) =>
-							setVisibility(
-								Visibility[
-									e.target.value as keyof typeof Visibility
-								]
-							)
-						}
-					>
-						{Object.values(Visibility).map((v) => (
-							<option key={v}>{v}</option>
-						))}
-					</select>
+					<span>Visibility: </span>
+					{Object.values(Visibility).map((v) => (
+						<label htmlFor={v} key={v}>
+							{v}
+							<input
+								type="radio"
+								id={v}
+								value={v}
+								name="visibility"
+								checked={visibility === v}
+								onChange={(e) =>
+									setVisibility(e.target.value as Visibility)
+								}
+							/>
+						</label>
+					))}
 				</div>
 				<div>
-					<label htmlFor="weather">Weather</label>
-					<select
-						id="weather"
-						value={weather}
-						onChange={(e) =>
-							setWeather(
-								Weather[e.target.value as keyof typeof Weather]
-							)
-						}
-					>
-						{Object.values(Weather).map((v) => (
-							<option key={v} value={v}>
-								{v}
-							</option>
-						))}
-					</select>
+					<span>Weather: </span>
+					{Object.values(Weather).map((w) => (
+						<label htmlFor={w} key={w}>
+							{w}
+							<input
+								type="radio"
+								id={w}
+								value={w}
+								name="weather"
+								checked={weather === w}
+								onChange={(e) =>
+									setWeather(e.target.value as Weather)
+								}
+							/>
+						</label>
+					))}
 				</div>
 				<div>
 					<label htmlFor="comment">Comment</label>

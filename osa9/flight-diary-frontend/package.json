@@ -24,7 +24,7 @@
 		"build:backend": "cd ../flight-diary && npm run tsc",
 		"test": "react-scripts test",
 		"eject": "react-scripts eject",
-		"lint": "eslint './src/**/*.{ts,tsx}'"
+		"lint": "eslint --ext .tsx --ext .ts src/"
 	},
 	"eslintConfig": {
 		"extends": [
