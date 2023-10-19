@@ -1,10 +1,11 @@
-import { Rating } from "@mui/material";
+import { Grid, Rating, Tooltip } from "@mui/material";
 import { Favorite } from "@mui/icons-material";
 
 import { styled } from "@mui/material/styles";
+import { HealthCheckRating } from "../types";
 
 type BarProps = {
-	rating: number;
+	rating: HealthCheckRating;
 	showText: boolean;
 };
 
@@ -26,16 +27,26 @@ const HEALTHBAR_TEXTS = [
 
 const HealthRatingBar = ({ rating, showText }: BarProps) => {
 	return (
-		<div className="health-bar">
-			<StyledRating
-				readOnly
-				value={4 - rating}
-				max={4}
-				icon={<Favorite fontSize="inherit" />}
-			/>
+		<Grid className="health-bar" display="flex" gap={2}>
+			<Tooltip title={HEALTHBAR_TEXTS[rating]}>
+				<Grid display="flex" alignItems="center">
+					<StyledRating
+						readOnly
+						value={4 - rating}
+						max={4}
+						icon={<Favorite fontSize="inherit" />}
+						emptyIcon={
+							<Favorite
+								fontSize="inherit"
+								style={{ opacity: 0.55 }}
+							/>
+						}
+					/>
+				</Grid>
+			</Tooltip>
 
 			{showText ? <p>{HEALTHBAR_TEXTS[rating]}</p> : null}
-		</div>
+		</Grid>
 	);
 };
 
