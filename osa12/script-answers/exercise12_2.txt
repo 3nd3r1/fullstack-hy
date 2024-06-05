@@ -1,0 +1,4 @@
+3nd3r1@mypc$ docker container run -it ubuntu bash
+3nd3r1@container$ mkdir /usr/src/app
+3nd3r1@container$ touch /usr/src/app/index.js
+3nd3r1@container$ exit
