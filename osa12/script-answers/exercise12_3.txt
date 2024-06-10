@@ -1,0 +1,3 @@
+3nd3r1@mypc$ docker start -i intelligent_dewdney
+3nd3r1@intelligent_dewdney$ apt-get update && apt-get -y install nano
+3nd3r1@intelligent_dewdney$ nano /usr/src/app/index.js
