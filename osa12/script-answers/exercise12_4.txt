@@ -1,0 +1,5 @@
+3nd3r1@intelligent_dewdney$ apt install -y curl
+3nd3r1@intelligent_dewdney$ curl -sL https://deb.nodesource.com/setup_20.x | bash
+3nd3r1@intelligent_dewdney$ apt install -y nodejs
+3nd3r1@intelligent_dewdney$ node /usr/src/app/index.js
+Hello World
