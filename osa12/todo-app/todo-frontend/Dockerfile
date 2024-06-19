@@ -4,7 +4,7 @@ COPY . .
 RUN npm ci && npm run test
 
 FROM test-stage AS build-stage
-ENV VITE_BACKEND_URL=http://localhost:3000
+ARG VITE_BACKEND_URL=http://localhost:3000
 RUN npm run build
 
 FROM nginx:1.25-alpine
